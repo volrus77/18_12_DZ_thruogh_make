@@ -2,7 +2,28 @@
 #include <filesystem>
 namespace fs = std::filesystem;
 
-void Chat::startChat()
+int Chat::startChat()
+{
+	makeUsersArr();
+	makeMessagesArr();
+	work_ = true;
+
+	while (work_)
+	{
+		// вход в чат конкретного пользователя (currentUsesr != nullptr)
+		showLoginMenu();  // меню: вход, регистрация = вход, выход
+
+		while (getcurrentUser())  // пока currentUsesr != nullptr
+		{
+			// меню действий пользователя в чате
+			showUserMenu();
+		}
+	}
+	saveChat();
+	return 0;
+}
+
+void Chat::makeUsersArr()
 {
 	userArr_.reserve(MAXCOUNTUSERS);
 	// чтение пользователей из файла если существует
@@ -23,8 +44,11 @@ void Chat::startChat()
 		 }	
 
 		users_stream.close();		
-	}			
+	}	
+}		
 
+void Chat::makeMessagesArr()
+{
     messageArr_.reserve(MAXCOUNTUSERS);
 	// чтение сообщений из файла если существует
 	std::fstream messages_stream = std::fstream(messages_file_, std::ios::in | std::ios::out);
@@ -43,9 +67,6 @@ void Chat::startChat()
 		}	
 		messages_stream.close();	
 	}
-	
-	work_ = true;
-
 }
 
 void Chat::saveChat() const
