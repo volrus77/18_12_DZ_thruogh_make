@@ -26,7 +26,8 @@ private:
 
     void makeUsersArr();
     void makeMessagesArr();
-    void saveChat() const;
+    void saveUsersArr() const;
+    void saveMessagesArr() const;
     void showLoginMenu();
     void showUserMenu();
     bool work() const { return work_; }

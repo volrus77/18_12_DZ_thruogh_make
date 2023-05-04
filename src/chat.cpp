@@ -19,7 +19,8 @@ int Chat::startChat()
 			showUserMenu();
 		}
 	}
-	saveChat();
+	saveUsersArr();
+	saveMessagesArr();
 	return 0;
 }
 
@@ -30,7 +31,7 @@ void Chat::makeUsersArr()
 	std::fstream users_stream = std::fstream(users_file_, std::ios::in | std::ios::out);
 	if (!users_stream)
 	{
-		std::cout << "Error in opening the file" << std::endl;
+		//std::cout << "Error in opening the file" << std::endl;
 	}	
 	if (users_stream)
 	{		
@@ -54,7 +55,7 @@ void Chat::makeMessagesArr()
 	std::fstream messages_stream = std::fstream(messages_file_, std::ios::in | std::ios::out);
 	if (!messages_stream)
 	{
-		std::cout << "Error in opening the file" << std::endl;
+		//std::cout << "Error in opening the file" << std::endl;
 	}	
 	if (messages_stream)
 	{
@@ -69,7 +70,7 @@ void Chat::makeMessagesArr()
 	}
 }
 
-void Chat::saveChat() const
+void Chat::saveUsersArr() const
 {
 	// сохраняем пользователей в файл
 	std::fstream users_stream = std::fstream(users_file_, std::ios::in | std::ios::out);
@@ -96,7 +97,10 @@ void Chat::saveChat() const
 		}
 	}
 	users_stream.close();
+}
 
+void Chat::saveMessagesArr() const
+{
 	// сохраняем сообщения в файл
 	std::fstream messages_stream = std::fstream(messages_file_, std::ios::in | std::ios::out);
 	if (messages_stream) {
@@ -126,14 +130,14 @@ void Chat::saveChat() const
 
 const std::shared_ptr <AuthData> Chat::getUserLog(const std::string& login) const
 {
-	for(const auto &user : userArr_)
-{
-if (user.getLogin() == login )
-{
-	return std::make_shared<AuthData>(user);
-}
-}
-return nullptr;
+		for(const auto &user : userArr_)
+	{	
+		if (user.getLogin() == login )
+		{
+			return std::make_shared<AuthData>(user);
+		}
+	}
+	return nullptr;
 }
 
 void Chat::userRegistration()
@@ -292,11 +296,9 @@ void Chat::showAllUsers() const
 	for (const auto& user : userArr_)
 	{
 		std::cout << user.getLogin();
-		//cout << endl;
 		if (currentUser_->getLogin() == user.getLogin())
 		{
 			std::cout << "(me)";
-			//cout << endl;
 		}
 		std::cout << std::endl;
 	}
@@ -304,29 +306,28 @@ void Chat::showAllUsers() const
 
 void Chat::showChat() const
 {
-	//std::cout << "Chat: " << std::endl;
 	std::cout << "Messages to me: " << std::endl;
-for ( const auto& msg : messageArr_)
-{
-	if(msg.getReceiver() == currentUser_->getLogin() || msg.getReceiver() == "all")
+	for ( const auto& msg : messageArr_)
 	{
-	std::cout << "from: " << msg.getSender() << " to: " 
-	<< msg.getReceiver() << std::endl;
-	std::cout << msg.getText() << std::endl;
+		if(msg.getReceiver() == currentUser_->getLogin() || msg.getReceiver() == "all")
+		{
+			std::cout << "from: " << msg.getSender() << " to: " 
+			<< msg.getReceiver() << std::endl;
+			std::cout << msg.getText() << std::endl;
+		}
 	}
-}
 
-std::cout << std::endl;
-std::cout << "Messages from me: " << std::endl;
-for ( const auto& msg : messageArr_)
-{
-	if(msg.getSender() == currentUser_->getLogin())
-	{
-	std::cout << "from: " << msg.getSender() 
-	<< " to: " << msg.getReceiver() << std::endl;
-	std::cout << msg.getText() << std::endl;
+	std::cout << std::endl;
+	std::cout << "Messages from me: " << std::endl;
+	for ( const auto& msg : messageArr_)
+	{	
+		if(msg.getSender() == currentUser_->getLogin())
+		{
+			std::cout << "from: " << msg.getSender() 
+			<< " to: " << msg.getReceiver() << std::endl;
+			std::cout << msg.getText() << std::endl;
+		}
 	}
-}
 }
 
  std::fstream& operator >>(std::fstream& is, Message& msg)
@@ -337,6 +338,7 @@ for ( const auto& msg : messageArr_)
 	std::getline(is, msg.text_, '\n');
 	return is;
 }
+
 std::ostream& operator <<(std::ostream& os, const Message& msg)
 {
 	os << msg.sender_;
@@ -344,7 +346,6 @@ std::ostream& operator <<(std::ostream& os, const Message& msg)
 	os << msg.receiver_;
 	os << ' ';
 	os << msg.text_;
-	//os << '\n';  // и без этого происходит переход на новую строку
 	return os;
 }
 
@@ -358,6 +359,7 @@ std::fstream& operator >>(std::fstream& is, AuthData& user)
 	is >> user.name_;
 	return is;
 }
+
 std::ostream& operator <<(std::ostream& os, const AuthData& user)
 {
 	os << user.login_;
@@ -368,8 +370,6 @@ std::ostream& operator <<(std::ostream& os, const AuthData& user)
 	os << ' ';
     }
 	os << user.name_;
-	
-	//os << '\n'; // и без этого происходит переход на новую строку
 	return os;
 }
  

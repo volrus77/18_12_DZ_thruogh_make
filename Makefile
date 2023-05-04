@@ -9,7 +9,7 @@ clean:
 	rm -rf *.o *.a *.txt ./src/*.txt
 
 clean-users-messages:
-	rm -rf *.txt ./src/*.txt
+	rm -rf *.txt 
 
 install:
 	install $(TARGET) $(PREFIX)
