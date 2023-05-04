@@ -21,7 +21,7 @@ class Chat {
 
 public:
     void startChat();
-    void saveChat();
+    void saveChat() const;
     void showLoginMenu();
     void showUserMenu();
     bool work() const { return work_; }

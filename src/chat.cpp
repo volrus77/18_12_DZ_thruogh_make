@@ -48,13 +48,13 @@ void Chat::startChat()
 
 }
 
-void Chat::saveChat()
+void Chat::saveChat() const
 {
 	// сохраняем пользователей в файл
 	std::fstream users_stream = std::fstream(users_file_, std::ios::in | std::ios::out);
 	if (users_stream) {
 
-		for(auto &user : userArr_)
+		for( const auto &user : userArr_)
 		{
 			users_stream << user << std::endl;
 		}
@@ -68,7 +68,7 @@ void Chat::saveChat()
 		// разрешения на файл только для владельца, при создании файла
 		fs::permissions(users_file_, fs::perms::owner_all, fs::perm_options::replace);
  
-		for(auto &user : userArr_)
+		for(const auto &user : userArr_)
 		{
 			users_stream << user << std::endl;
 		}
@@ -80,7 +80,7 @@ void Chat::saveChat()
 	std::fstream messages_stream = std::fstream(messages_file_, std::ios::in | std::ios::out);
 	if (messages_stream) {
 
-		for(auto &msg : messageArr_)
+		for(const auto &msg : messageArr_)
 		{
 			messages_stream << msg << std::endl;
 		}
@@ -94,7 +94,7 @@ void Chat::saveChat()
 		// разрешения на файл только для владельца, при создании файла
 		fs::permissions(messages_file_, fs::perms::owner_all, fs::perm_options::replace);
 
-		for(auto &msg : messageArr_)
+		for(const auto &msg : messageArr_)
 		{
 			messages_stream << msg << std::endl;
 		}
