@@ -167,7 +167,7 @@ void Chat::userLogin()
 {
 	{
 		std::string login, pass;
-		char option;
+		char select;
 
 		do
 		{
@@ -191,9 +191,9 @@ void Chat::userLogin()
 			{
 				currentUser_ = nullptr;
 				std::cout << "0 - exit, or any key " << std::endl;
-				std::cin >> option;
+				std::cin >> select;
 
-				if (option == '0')
+				if (select == '0')
 					break;
 			}
 
@@ -204,15 +204,15 @@ void Chat::userLogin()
 void Chat::showLoginMenu()
 {
 	currentUser_ = nullptr;
-	char option;
+	char select;
 	do
 	{
 		std::cout << " 1 - Login " << std::endl;
 		std::cout << " 2 - Registration " << std::endl;
 		std::cout << " 0 - exit " << std::endl;
-		std::cin >> option;
+		std::cin >> select;
 
-		switch (option)
+		switch (select)
 		{
 		case '1':
 			userLogin();
@@ -240,16 +240,16 @@ void Chat::showLoginMenu()
 
 void Chat::showUserMenu()
 {
-	char option;
+	char select;
 	std::cout << "Hello, " << currentUser_->getLogin() << std::endl;
 	while (currentUser_)
 	{
 		std::cout << "1 - Show chat, 2 - Add Message, 3 - showAllUser, 0 - exit"
 			<< std::endl;
-		std::cin >> option;
+		std::cin >> select;
 
 
-		switch (option)
+		switch (select)
 		{
 		case '1':
 			showChat();
