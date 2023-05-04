@@ -20,14 +20,17 @@ struct UserLoginEx : public std::exception
 class Chat {
 
 public:
-    void startChat();
+    int startChat();
+    
+private:
+
+    void makeUsersArr();
+    void makeMessagesArr();
     void saveChat() const;
     void showLoginMenu();
     void showUserMenu();
     bool work() const { return work_; }
     const std::shared_ptr <AuthData> getcurrentUser() const { return currentUser_; }
-
-private:
 
     void userRegistration();
     void userLogin();
