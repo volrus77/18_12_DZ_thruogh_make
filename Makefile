@@ -6,7 +6,7 @@ chat : $(SRC)
 	g++ -o $(TARGET) $(SRC) -std=c++17 -lstdc++fs -Wall -O3
 
 clean: 
-	rm -rf *.o *.a *.txt ./src/*.txt
+	rm -rf *.o *.a *.txt
 
 clean-users-messages:
 	rm -rf *.txt 
