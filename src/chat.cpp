@@ -20,10 +20,10 @@ void Chat::useSystenFunction() const
         // распечатаем на экране информацию об операционной системе
         // эту информацию нам вернуло ядро Linux в объекте utsname
         std::cout << "OS name: " << utsname.sysname << std::endl; 
-        std::cout << "Host name: " << utsname.nodename << std::endl; 
-        std::cout << "OS release: " << utsname.release << std::endl; 
+        //std::cout << "Host name: " << utsname.nodename << std::endl; 
+        //std::cout << "OS release: " << utsname.release << std::endl; 
         std::cout << "OS version: " << utsname.version << std::endl; 
-        std::cout << "Architecture: " << utsname.machine << std::endl; 
+        //std::cout << "Architecture: " << utsname.machine << std::endl; 
 		std::cout << "PID = " << getpid() << std::endl;
  
 #else
