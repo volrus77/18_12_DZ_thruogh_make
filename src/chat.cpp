@@ -1,9 +1,39 @@
 #include "chat.h"
 #include <filesystem>
 namespace fs = std::filesystem;
+#include <sys/utsname.h> // uname()
+#include <unistd.h> // getpid()
+#if defined(_WIN32) 
+#include <process.h>
+#endif
+
+
+void Chat::useSystenFunction() const
+{
+#if defined(__linux__) 
+
+        struct utsname utsname; // объект для структуры типа utsname
+
+        uname(&utsname); // передаем объект по ссылке
+
+        // распечатаем на экране информацию об операционной системе
+        // эту информацию нам вернуло ядро Linux в объекте utsname
+        std::cout << "OS name: " << utsname.sysname << std::endl; 
+        std::cout << "Host name: " << utsname.nodename << std::endl; 
+        std::cout << "OS release: " << utsname.release << std::endl; 
+        std::cout << "OS version: " << utsname.version << std::endl; 
+        std::cout << "Architecture: " << utsname.machine << std::endl; 
+		std::cout << "PID = " << getpid() << std::endl;
+ 
+#else
+		std::cout << "PID = " << _getpid() << std::endl;
+        std::cout << "the system function  "uname()" is not supported" << std::endl;
+#endif
+}
 
 int Chat::startChat()
 {
+	useSystenFunction();
 	makeUsersArr();
 	makeMessagesArr();
 	work_ = true;
