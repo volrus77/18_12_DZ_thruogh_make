@@ -5,8 +5,9 @@ namespace fs = std::filesystem;
 #include <unistd.h> // getpid()
 #if defined(_WIN32) 
 #include <process.h>
+#elif defined(_WIN64)
+#include <process.h>
 #endif
-
 
 void Chat::useSystenFunction() const
 {
