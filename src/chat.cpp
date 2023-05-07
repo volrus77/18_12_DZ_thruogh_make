@@ -5,9 +5,21 @@ namespace fs = std::filesystem;
 #include <unistd.h> // getpid()
 #if defined(_WIN32) 
 #include <process.h>
+#include <VersionHelpers.h>
 #elif defined(_WIN64)
 #include <process.h>
+#include <VersionHelpers.h>
 #endif
+
+#include <VersionHelpers.h>
+…
+    if (!IsWindows10OrGreater())
+    {
+       MessageBox(NULL, "You need at least Windows 10.", "Version Not Supported", MB_OK);
+    }
+
+
+
 
 void Chat::useSystenFunction() const
 {
@@ -27,6 +39,10 @@ void Chat::useSystenFunction() const
 		std::cout << "PID = " << getpid() << std::endl;
  
 #else
+	if (IsWindows10OrGreater())
+    	{
+        	 std::cout << "You have Windows 10 or more" << std::endl;
+    	}	
 		std::cout << "PID = " << _getpid() << std::endl;
         std::cout << "the system function  "uname()" is not supported" << std::endl;
 #endif
