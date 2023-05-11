@@ -4,24 +4,14 @@ namespace fs = std::filesystem;
 #include <sys/utsname.h> // uname()
 #include <unistd.h> // getpid()
 #if defined(_WIN32) 
+#include <Windows.h>
 #include <process.h>
-#include <VersionHelpers.h>
 #elif defined(_WIN64)
+#include <Windows.h>
 #include <process.h>
-#include <VersionHelpers.h>
 #endif
 
-#include <VersionHelpers.h>
-…
-    if (!IsWindows10OrGreater())
-    {
-       MessageBox(NULL, "You need at least Windows 10.", "Version Not Supported", MB_OK);
-    }
-
-
-
-
-void Chat::useSystenFunction() const
+void Chat::useSystemFunction() const
 {
 #if defined(__linux__) 
 
@@ -50,7 +40,7 @@ void Chat::useSystenFunction() const
 
 int Chat::startChat()
 {
-	useSystenFunction();
+	useSystemFunction();
 	makeUsersArr();
 	makeMessagesArr();
 	work_ = true;

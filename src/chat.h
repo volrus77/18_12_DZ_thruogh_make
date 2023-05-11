@@ -24,7 +24,7 @@ public:
     
 private:
 
-    void useSystenFunction() const;
+    void useSystemFunction() const;
     void makeUsersArr();
     void makeMessagesArr();
     void saveUsersArr() const;
