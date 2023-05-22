@@ -3,10 +3,7 @@
 namespace fs = std::filesystem;
 #include <sys/utsname.h> // uname()
 #include <unistd.h> // getpid()
-#if defined(_WIN32) 
-#include <Windows.h>
-#include <process.h>
-#elif defined(_WIN64)
+#if defined(_WIN32) || defined(_WIN64)
 #include <Windows.h>
 #include <process.h>
 #endif
